@@ -1,0 +1,418 @@
+:root{
+    /* color palette: https://colorhunt.co/palette/12372a436850adbc9ffbfada */
+    --background-color: #FBFADA;
+    --foreground-color: #436850;
+    --header-height: 10vh;
+    --footer-height: 8vh;
+}
+
+
+html, body{
+    margin: 0;
+    padding: 0;
+}
+
+
+body{
+    background-color: var(--background-color);
+    
+    line-height: normal;
+
+    min-width: 325px;
+    position: relative;
+}
+
+
+header span{
+    font-family: "Tac One", sans-serif;
+    font-size: calc(var(--bs-body-font-size)*2);
+}
+
+header a{
+    font-family: "Tac One", sans-serif;
+    font-size: calc(var(--bs-body-font-size)*1.1) !important;
+}
+
+
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--header-height);
+    background-color: var(--foreground-color);
+
+    padding: 0 20px;
+}
+
+main{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    height: 82vh;
+}
+
+
+aside{
+    width: 350px;
+    /* max-height: calc(100vh - var(--header-height) - var(--footer-height)); */
+    /* height: 0; */
+    height: 82vh;
+
+    border-right: 1px solid var(--foreground-color);
+
+
+    /* display: flex;
+    flex-direction: column;
+    overflow: hidden; */
+
+    /* display: grid;
+    grid-template-rows: auto 1fr; */
+    overflow-y: auto;
+}
+
+
+#elementsDisplay{
+    display: flex;
+    justify-content: center;
+
+    position: relative;
+}
+
+#listSelector{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#myMap{
+    max-height: 80vh;
+    width: 85%;
+    border: 2px solid black;
+    border-radius: 6px;
+    margin: 10px 0;
+}
+
+#footerContainer{
+    height: var(--footer-height);
+    background-color: var(--foreground-color);
+    
+}
+
+#countrySearchForm{
+    display: flex;
+    margin: 5px 5px auto;
+}
+
+
+#countrySearchForm input{
+    font-size: 0.8rem;
+    text-overflow: ellipsis;
+}
+
+#listSelector a{
+    /* text-decoration: none; */
+    color: rgb(9, 84, 189);
+}
+
+#busyIcon{
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+
+
+    z-index: 1000;
+    font-size: 6em;
+    visibility: hidden;
+    color: var(--foreground-color);
+
+    height: 1.2em;
+    width: 1.2em;
+
+}
+
+#listSelector-busyIcon{
+    font-size: 2em;
+    /* visibility: hidden; */
+    display: none;
+    margin-bottom: 10px;
+    color: var(--foreground-color);
+}
+
+#listSelector-busyIcon-container{
+    display: flex;
+    justify-content: center;
+}
+
+
+#m-pop-download-footer{
+    display: inline-flex;
+    align-items: center;
+}
+
+#m-pop-download-busyIcon-container{
+    display: inline-block;
+    margin-left: 20px;
+}
+
+#m-pop-download-busyIcon{
+    color: var(--foreground-color);
+    font-size: 2em;
+    visibility: hidden;
+}
+
+.alert{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    display: inline-block;
+    visibility: hidden;
+}
+
+#footerContainer div span{
+    color: black;
+}
+
+
+tr{
+    font-size: 14px;
+}
+
+
+/* media at the end to have priority */
+@media (max-width: 768px){
+    main{
+        grid-template-columns: 1fr;
+        grid-template-rows: fit-content(400px) 1fr;
+
+        height: 82vh;
+    }
+
+    aside{
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--foreground-color);
+        padding-bottom: 10px;
+
+        /* revert height to default because we started with 0 */
+        height: auto;
+    }
+
+
+
+    header {
+        flex-direction: column;
+        height: 10vh;
+    }
+
+    #myMap {
+        width: 100%;
+        height: 100%;
+        border: none;
+        margin: 0;
+    }
+}
+
+aside > section > button::before{
+    width: 1.25em;
+    display: inline-block;
+    margin-right: 5px;
+    content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+    transition: transform 0.5s ease;
+    transform-origin: 25% 50%;
+}
+
+aside > section > button[aria-expanded="true"]::before {
+    transform: rotate(90deg);
+}
+
+
+aside > section > button {
+    font-family: "Oswald", sans-serif !important;
+}
+
+
+
+#addSelection ul{
+    list-style-type: none;
+    padding-left: 15px;
+}
+
+/* #addSelection > ul{
+    background-color: #f8f9fadd;
+} */
+
+.arrow::before {
+    border: solid black;
+    border-width: 3px 3px 0 0;
+    display: inline-block;
+    padding: 3px;
+    content: "";
+    margin-right: 7px;
+    /* vertical-align: middle; */
+    transform: translateY(-20%) rotate(45deg);
+}
+
+
+.arrow-down::before{
+    transform: rotate(135deg);
+}
+
+input.addSelCheckbox{
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+
+#addSelectionFilterSection{
+    margin: 5px 5px auto;
+    height: 37.6px;
+}
+
+#addSelectionTools{
+    height: 45px;
+    padding: 5px;
+}
+
+#addSelectionTree{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-top: 1px solid black;
+    /* overflow-y: auto; */
+}
+
+#addSelectionTools button{
+    /* vertical-align: top !important; */
+    height: 30px;
+    min-width: 45px;
+    font-size: 10px;
+    padding: 0 5px 0 5px !important;
+}
+
+
+#addSelectionFilterSection input[type="search"]{
+    font-size: 0.8rem;
+}
+
+
+#select-add{
+    /* display: grid;
+    grid-template-rows: auto 1fr; */
+    /* overflow: hidden; */
+}
+
+#add-selection-grid{
+    height: 100%;
+    /* display: grid;
+    grid-template-rows: auto auto 1fr; */
+}
+
+#addSelection{
+    /* overflow: hidden; */
+}
+
+/* -------------------------------------------------------------------------- */
+/* custom stylings for leaflet */
+
+.leaflet-popup-content{
+    margin: 7px;
+}
+
+.leaflet-popup-close-button{
+    display: none;
+}
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/* custom stylings for jstree */
+
+
+
+.vakata-context li>a{
+    padding: 0 10px 0 0;
+    font-family: "Oswald", sans-serif !important;
+    font-size: calc(var(--bs-body-font-size)*0.9);
+}
+
+.vakata-context{
+    border-radius: 5px;
+    background-color: #f8f9fa;
+}
+
+/* -------------------------------------------------------------------------- */
+
+
+.m-popup{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3000;
+
+    width: 320px;
+    background-color: #f8f9fa;
+    font-family: "Oswald", sans-serif !important;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px 3px rgba(0,0,0,0.5);
+
+    padding: 12px 10px 12px;
+    visibility: hidden;
+
+
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.m-popup-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+    visibility: hidden;
+
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.m-popup.show, .m-popup-background.show{
+    opacity: 1;
+    visibility: visible;
+}
+
+
+#form-download-structure input{
+    vertical-align: middle;
+    margin-right: 7px;
+}
+
+.m-popup-body hr{
+    margin: 10px 0 10px;
+}
+
+#form-download-structure button {
+    height: 30px;
+    font-size: 13px;
+    padding: 0 5px 0 5px !important;
+}
+
+#osm-geom-geojson{
+    display: inline-flex;
+    flex-direction: column;
+}
+
+#geojson-geom-container{
+    font-size: 0.9em;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.osm-geom-geojson-checked {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
